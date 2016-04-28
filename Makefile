@@ -14,6 +14,6 @@ test:
 	TF_ACC=1 go test -v
 
 vet:
-	go vet -x
+	go vet -x ./...
 
 .PHONY: clean fmt get test vet
