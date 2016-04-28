@@ -1,0 +1,11 @@
+sudo: false
+language: go
+go:
+  - 1.6
+
+script:
+  - make test vet
+
+branches:
+  only:
+    - develop
