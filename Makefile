@@ -4,7 +4,16 @@ terraform-provider-tack: $(shell find . -iname "*.go")
 clean:
 	@rm terraform-provider-tack ||:
 
+fmt:
+	go fmt -x .
+
+get:
+	go get -v ./...
+
 test:
 	TF_ACC=1 go test -v
 
-.PHONY: clean test
+vet:
+	go vet -x
+
+.PHONY: clean fmt get test vet
