@@ -1,10 +1,10 @@
 terraform-provider-tack: $(shell find . -iname "*.go")
-	go build -o $@
+	scripts/build.sh
 
 build: terraform-provider-tack
 
 clean:
-	@rm terraform-provider-tack ||:
+	@rm -rf bin/ ||:
 
 fmt:
 	go fmt -x .
@@ -12,10 +12,13 @@ fmt:
 get:
 	go get -v ./...
 
+gox:
+	gox
+
 test:
 	TF_ACC=1 go test -v
 
 vet:
 	go vet -x ./...
 
-.PHONY: build clean fmt get test vet
+.PHONY: build clean fmt get gox test vet
