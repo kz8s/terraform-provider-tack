@@ -30,6 +30,7 @@ test:
 
 deployment:
   develop:
-    branch: master
+    branch: develop
     commands:
       - make build
+      - mv terraform-provider-tack $CIRCLE_ARTIFACTS
