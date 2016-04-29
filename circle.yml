@@ -33,4 +33,4 @@ deployment:
     branch: develop
     commands:
       - make build
-      - mv terraform-provider-tack $CIRCLE_ARTIFACTS
+      - mv bin/ $CIRCLE_ARTIFACTS
