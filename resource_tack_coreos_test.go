@@ -9,10 +9,6 @@ import (
 	"github.com/hashicorp/terraform/terraform"
 )
 
-var testProviders = map[string]terraform.ResourceProvider{
-	"tack": Provider(),
-}
-
 func TestTackCoreOSAmiRecord_Basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 		Providers: testProviders,

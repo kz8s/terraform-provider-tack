@@ -14,9 +14,9 @@ func TestTackAwsAzsRecord_Basic(t *testing.T) {
 		Providers: testProviders,
 		Steps: []resource.TestStep{
 			resource.TestStep{
-				Config: testAwsAzsRecord_basic,
+				Config: testAwsAzsRecordBasic,
 				Check: resource.ComposeTestCheckFunc(
-					testCoreOSAmiRecordExists("tack_coreos.foo"),
+					testAwsAzsRecordExists("tack_aws_azs.foo"),
 				),
 			},
 		},
@@ -30,22 +30,22 @@ func testAwsAzsRecordExists(n string) resource.TestCheckFunc {
 			return fmt.Errorf("resource not found: %s", n)
 		}
 
-		azs_string := s.RootModule().Outputs["azs_string"]
-		match, err := regexp.MatchString("us-west-1.*", azs_string)
+		azsString := s.RootModule().Outputs["azs_string"]
+		match, err := regexp.MatchString("us-west-1.*", azsString)
 		if err != nil {
 			return err
 		}
 		if !match {
-			return fmt.Errorf("azs_string doesn't contain us-west-1: %s", azs_string)
+			return fmt.Errorf("azs_string doesn't contain us-west-1: %s", azsString)
 		}
 
-		fmt.Println(azs_string)
+		fmt.Println(azsString)
 
 		return nil
 	}
 }
 
-const testAwsAzsRecord_basic = `
+const testAwsAzsRecordBasic = `
 resource "tack_aws_azs" "foo" {
   region  = "us-west-1"
 }
