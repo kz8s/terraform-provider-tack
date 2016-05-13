@@ -1,5 +1,5 @@
 terraform-provider-tack: $(shell find . -iname "*.go")
-	scripts/build.sh
+	go build -o terraform-provider-tack
 
 build: terraform-provider-tack
 
