@@ -8,7 +8,8 @@ import (
 func Provider() *schema.Provider {
 	return &schema.Provider{
 		ResourcesMap: map[string]*schema.Resource{
-			"tack_coreos": resourceTackCoreos(),
+			"tack_coreos":  resourceTackCoreos(),
+			"tack_aws_azs": resourceTackAwsAzs(),
 		},
 	}
 }
