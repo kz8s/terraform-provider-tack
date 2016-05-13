@@ -23,7 +23,7 @@ func resourceTackAwsAzs() *schema.Resource {
 			"azs_string": &schema.Schema{
 				Type:        schema.TypeString,
 				Computed:    true,
-				Description: "azs",
+				Description: "Comma delimited string listing available Availability Zones",
 			},
 
 			"azs": &schema.Schema{
