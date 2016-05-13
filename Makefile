@@ -4,7 +4,7 @@ terraform-provider-tack: $(shell find . -iname "*.go")
 build: terraform-provider-tack
 
 clean:
-	@rm -rf bin/ ||:
+	@rm -rf terraform.tfstate.backup terraform.tfstate terraform-provider-tack ||:
 
 fmt:
 	go fmt -x .
