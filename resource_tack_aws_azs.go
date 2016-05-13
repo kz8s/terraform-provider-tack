@@ -19,11 +19,19 @@ func resourceTackAwsAzs() *schema.Resource {
 		// Exists: resourceTackAwsAzsExists,
 
 		Schema: map[string]*schema.Schema{
-			"azs": &schema.Schema{
+
+			"azs_string": &schema.Schema{
 				Type:        schema.TypeString,
 				Computed:    true,
 				Description: "azs",
 			},
+
+			"azs": &schema.Schema{
+				Type:     schema.TypeList,
+				Computed: true,
+				Elem:     &schema.Schema{Type: schema.TypeString},
+			},
+
 			"region": &schema.Schema{
 				Type:     schema.TypeString,
 				ForceNew: true,
@@ -43,7 +51,8 @@ func resourceTackAwsAzsCreate(d *schema.ResourceData, m interface{}) (err error)
 		return
 	}
 
-	d.Set("azs", strings.Join(azs, ","))
+	d.Set("azs_string", strings.Join(azs, ","))
+	d.Set("azs", azs)
 
 	d.SetId(region + "!")
 	return
@@ -54,19 +63,10 @@ func resourceTackAwsAzsRead(d *schema.ResourceData, m interface{}) (err error) {
 	return
 }
 
-// func resourceTackAwsAzsUpdate(d *schema.ResourceData, m interface{}) error {
-// 	return nil
-// }
-
-func resourceTackAwsAzsDelete(d *schema.ResourceData, m interface{}) error {
+func resourceTackAwsAzsDelete(d *schema.ResourceData, m interface{}) (err error) {
 	log.Println("[INFO] calling delete")
-	return nil
+	return
 }
-
-// func resourceTackAwsAzsExists(d *schema.ResourceData, meta interface{}) (bool, error) {
-// 	log.Println("[INFO] calling exists")
-// 	return d.Get("region").(string) == d.Id(), nil
-// }
 
 func getAvailabilityZones(region string) (azs []string, err error) {
 	svc := ec2.New(session.New(), &aws.Config{Region: aws.String(region)})
