@@ -17,11 +17,14 @@ dependencies:
     - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d ~/bin
 
   override:
-    - mkdir -p "$GOPATH/src/$IMPORT_PATH"
-    - rsync -azC --delete ./ "$GOPATH/src/$IMPORT_PATH/"
+    # - mkdir -p "$GOPATH/src/$IMPORT_PATH"
+    # - rsync -azC --delete ./ "$GOPATH/src/$IMPORT_PATH/"
+    - go get -t -d -v ./...
+    - cd ~/.go_workspace/src/github.com/hashicorp/terraform && git checkout v0.6.16
+    - go build -v
 
-  cache_directories:
-    - ~/download
+  # cache_directories:
+  #   - ~/download
 
 test:
   pre:
@@ -29,7 +32,6 @@ test:
 
   override:
     - make test
-    - make build
     - terraform plan
     - terraform graph
     - terraform apply
@@ -41,5 +43,5 @@ deployment:
   develop:
     branch: develop
     commands:
-      - make build
+      - make release
       - mv bin/ $CIRCLE_ARTIFACTS
