@@ -30,7 +30,7 @@ dependencies:
 
     # hashicorp has breaking changes in HEAD, so force checkout of a workable
     # version
-    - cd ~/.go_workspace/src/github.com/hashicorp/terraform && git checkout $TERRAFORM_VERSION
+    - cd ~/.go_workspace/src/github.com/hashicorp/terraform && git checkout v0.6.16
     - go build -v
     - mv terraform-provider-tack ~/bin
 
