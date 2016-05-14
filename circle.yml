@@ -7,9 +7,6 @@ machine:
 
   post:
     - mkdir -p download
-    # - test -e download/$GODIST || curl -o download/$GODIST https://storage.googleapis.com/golang/$GODIST
-    # - sudo rm -rf /usr/local/go
-    # - sudo tar -C /usr/local -xzf download/$GODIST
 
 dependencies:
   pre:
@@ -50,4 +47,4 @@ deployment:
     branch: develop
     commands:
       - make release
-      - mv release/ $CIRCLE_ARTIFACTS
+      - mv release/*.tgz $CIRCLE_ARTIFACTS
