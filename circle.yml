@@ -2,6 +2,7 @@ machine:
   environment:
     GODIST: "go1.6.linux-amd64.tar.gz"
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+    TERRAFORM_VERSION: 0.6.15
 
   post:
     - mkdir -p download
@@ -12,6 +13,8 @@ machine:
 dependencies:
   pre:
     - go get github.com/tools/godep
+    - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+    - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d ~/bin
 
   override:
     - mkdir -p "$GOPATH/src/$IMPORT_PATH"
@@ -26,7 +29,13 @@ test:
 
   override:
     - make test
-
+    - make build
+    - terraform plan
+    - terraform graph
+    - terraform apply
+    - terraform output
+    - terraform destroy
+    - terraform plan
 
 deployment:
   develop:
