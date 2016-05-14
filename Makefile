@@ -7,7 +7,7 @@ apply: terraform-provider-tack
 build: terraform-provider-tack
 
 clean:
-	@rm -rf terraform.tfstate.backup terraform.tfstate terraform-provider-tack ||:
+	@rm -rf terraform.tfstate.backup terraform.tfstate terraform-provider-tack release ||:
 
 destroy: terraform-provider-tack
 	terraform destroy
@@ -25,7 +25,7 @@ plan: terraform-provider-tack
 	terraform plan
 
 release:
-	scripts/build.sh
+	scripts/release.sh
 
 test:
 	TF_ACC=1 go test -v
