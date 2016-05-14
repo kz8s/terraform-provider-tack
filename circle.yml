@@ -1,18 +1,18 @@
 machine:
   environment:
-    GODIST: "go1.6.linux-amd64.tar.gz"
-    IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
+    # GODIST: "go1.6.linux-amd64.tar.gz"
+    # IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
     TERRAFORM_VERSION: 0.6.15
 
-  post:
-    - mkdir -p download
-    - test -e download/$GODIST || curl -o download/$GODIST https://storage.googleapis.com/golang/$GODIST
-    - sudo rm -rf /usr/local/go
-    - sudo tar -C /usr/local -xzf download/$GODIST
+  # post:
+  #   - mkdir -p download
+  #   - test -e download/$GODIST || curl -o download/$GODIST https://storage.googleapis.com/golang/$GODIST
+  #   - sudo rm -rf /usr/local/go
+  #   - sudo tar -C /usr/local -xzf download/$GODIST
 
 dependencies:
   pre:
-    - go get github.com/tools/godep
+    # - go get github.com/tools/godep
     - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d ~/bin
 
