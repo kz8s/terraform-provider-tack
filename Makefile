@@ -1,5 +1,5 @@
 terraform-provider-tack: $(shell find . -iname "*.go")
-	go build -o terraform-provider-tack
+	go build
 
 apply: terraform-provider-tack
 	terraform apply
@@ -18,9 +18,6 @@ fmt:
 get:
 	go get -v ./...
 
-gox:
-	gox
-
 graph: terraform-provider-tack
 	terraform graph
 
@@ -33,4 +30,4 @@ test:
 vet:
 	go vet -x ./...
 
-.PHONY: apply build clean destroy fmt get gox graph plan test vet
+.PHONY: apply build clean destroy fmt get graph plan test vet
