@@ -33,7 +33,7 @@ test:
 
   override:
     - make test
-    - cd examples && scripts/test.sh
+    - scripts/test.sh examples/
 
 deployment:
   develop:
