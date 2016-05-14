@@ -1,14 +1,15 @@
 machine:
   environment:
     GODIST: "go1.6.2.linux-amd64.tar.gz"
+    GO_SHA256SUM: "787b0b750d037016a30c6ed05a8a70a91b2e9db4bd9b1a2453aa502a63f1bccc"
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
     TERRAFORM_VERSION: 0.6.15
 
   post:
     - mkdir -p download
-    - test -e download/$GODIST || curl -o download/$GODIST https://storage.googleapis.com/golang/$GODIST
-    - sudo rm -rf /usr/local/go
-    - sudo tar -C /usr/local -xzf download/$GODIST
+    # - test -e download/$GODIST || curl -o download/$GODIST https://storage.googleapis.com/golang/$GODIST
+    # - sudo rm -rf /usr/local/go
+    # - sudo tar -C /usr/local -xzf download/$GODIST
 
 dependencies:
   pre:
@@ -16,6 +17,13 @@ dependencies:
     - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d ~/bin
 
   override:
+    - |
+      if [ ! -e "download/$GODIST" ]; then
+        curl -o download/$GODIST https://storage.googleapis.com/golang/$GODIST
+        echo "${GO_SHA256SUM}  $GODIST" | sha256sum -c || exit 1
+      fi
+    - sudo rm -rf /usr/local/go
+    - sudo tar -C /usr/local -xzf download/$GODIST
     - mkdir -p "$GOPATH/src/$IMPORT_PATH"
     - rsync -azC --delete ./ "$GOPATH/src/$IMPORT_PATH/"
     - go get -t -d -v ./...
@@ -42,4 +50,4 @@ deployment:
     branch: develop
     commands:
       - make release
-      - mv bin/ $CIRCLE_ARTIFACTS
+      - mv release/ $CIRCLE_ARTIFACTS
