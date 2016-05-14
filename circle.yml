@@ -21,7 +21,6 @@ dependencies:
       if [ ! -e "${TERRAFORM_DIST}" ]; then
         curl -O https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_DIST}
         echo "${TERRAFORM_SHA256SUM}  ${TERRAFORM_DIST}" | sha256sum ${TERRAFORM_DIST} || exit 1
-        unzip -d ~/bin ${TERRAFORM_DIST}
       fi
     - |
       cd ${HOME}/download
@@ -29,6 +28,7 @@ dependencies:
         curl -O https://storage.googleapis.com/golang/$GODIST
         echo "${GO_SHA256SUM}  $GODIST" | sha256sum $GODIST || exit 1
       fi
+    - unzip -d ~/bin ${HOME}/download/${TERRAFORM_DIST}
     - sudo rm -rf /usr/local/go
     - sudo tar -C /usr/local -xzf ${HOME}/download/$GODIST
     - mkdir -p "$GOPATH/src/$IMPORT_PATH"
