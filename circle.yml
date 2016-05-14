@@ -17,10 +17,11 @@ dependencies:
 
   override:
     - |
-      if [ ! -e "${HOME}/download/${TERRAFORM_DIST}" ]; then
-        curl -o ${HOME}/download/${TERRAFORM_DIST} https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_DIST}
-        echo "${TERRAFORM_SHA256SUM}  ${TERRAFORM_DIST}" | sha256sum ${HOME}/download/${TERRAFORM_DIST} || exit 1
-        unzip -d ~/bin ${HOME}/download/${TERRAFORM_DIST}
+      cd ${HOME}/download
+      if [ ! -e "${TERRAFORM_DIST}" ]; then
+        curl -O https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_DIST}
+        echo "${TERRAFORM_SHA256SUM}  ${TERRAFORM_DIST}" | sha256sum ${TERRAFORM_DIST} || exit 1
+        unzip -d ~/bin ${TERRAFORM_DIST}
       fi
     - |
       if [ ! -e "${HOME}/download/$GODIST" ]; then
