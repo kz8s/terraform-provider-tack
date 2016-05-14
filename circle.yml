@@ -12,7 +12,6 @@ machine:
 
 dependencies:
   pre:
-    # - go get github.com/tools/godep
     - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
     - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d ~/bin
 
@@ -20,6 +19,9 @@ dependencies:
     - mkdir -p "$GOPATH/src/$IMPORT_PATH"
     - rsync -azC --delete ./ "$GOPATH/src/$IMPORT_PATH/"
     - go get -t -d -v ./...
+
+    # contrary to guidance hashicorp has breaking changes in HEAD
+    # so force checkout or a workable version
     - cd ~/.go_workspace/src/github.com/hashicorp/terraform && git checkout v0.6.16
     - go build -v
     - mv terraform-provider-tack ~/bin
