@@ -22,6 +22,7 @@ dependencies:
     - go get -t -d -v ./...
     - cd ~/.go_workspace/src/github.com/hashicorp/terraform && git checkout v0.6.16
     - go build -v
+    - mv terraform-provider-tack ~/bin
 
   # cache_directories:
   #   - ~/download
@@ -32,12 +33,7 @@ test:
 
   override:
     - make test
-    - terraform plan
-    - terraform graph
-    - terraform apply
-    - terraform output
-    - terraform destroy
-    - terraform plan
+    - cd examples && scripts/test.sh
 
 deployment:
   develop:
