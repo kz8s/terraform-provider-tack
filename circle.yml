@@ -4,17 +4,24 @@ machine:
     GO_SHA256SUM: "787b0b750d037016a30c6ed05a8a70a91b2e9db4bd9b1a2453aa502a63f1bccc"
     IMPORT_PATH: "github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME"
     TERRAFORM_SHA256SUM: "e10987bca7ec15301bc2fd152795d51cfc9fdbe6c70c9708e6e2ed81eaa1f082"
-    TERRAFORM_VERSION: 0.6.16
+    TERRAFORM_VERSION: "0.6.16"
+    TERRAFORM_DIST: "terraform_${TERRAFORM_VERSION}_linux_amd64.zip"
 
   post:
     - mkdir -p download
 
 dependencies:
-  pre:
-    - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-    - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d ~/bin
+  # pre:
+  #   - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+  #   - unzip ${TERRAFORM_VERSION} -d ~/bin
 
   override:
+    - |
+      if [ ! -e "${HOME}/download/${TERRAFORM_DIST}" ]; then
+        curl -o ${HOME}/download/${TERRAFORM_DIST} https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_DIST}
+        echo "${TERRAFORM_SHA256SUM}  ${TERRAFORM_DIST}" | sha256sum -c || exit 1
+        unzip -d ~/bin ${TERRAFORM_DIST}
+      fi
     - |
       if [ ! -e "${HOME}/download/$GODIST" ]; then
         curl -o ${HOME}/download/$GODIST https://storage.googleapis.com/golang/$GODIST
