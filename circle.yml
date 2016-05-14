@@ -24,9 +24,10 @@ dependencies:
         unzip -d ~/bin ${TERRAFORM_DIST}
       fi
     - |
-      if [ ! -e "${HOME}/download/$GODIST" ]; then
-        curl -o ${HOME}/download/$GODIST https://storage.googleapis.com/golang/$GODIST
-        echo "${GO_SHA256SUM}  $GODIST" | sha256sum ${HOME}/download/$GODIST || exit 1
+      cd ${HOME}/download
+      if [ ! -e "$GODIST" ]; then
+        curl -O https://storage.googleapis.com/golang/$GODIST
+        echo "${GO_SHA256SUM}  $GODIST" | sha256sum $GODIST || exit 1
       fi
     - sudo rm -rf /usr/local/go
     - sudo tar -C /usr/local -xzf ${HOME}/download/$GODIST
