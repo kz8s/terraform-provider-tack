@@ -11,6 +11,7 @@ func Provider() *schema.Provider {
 			"tack_aws_account_id": resourceTackAwsAccountID(),
 			"tack_aws_azs":        resourceTackAwsAzs(),
 			"tack_coreos":         resourceTackCoreos(),
+			"tack_curl":           resourceTackCurl(),
 			"tack_my_ip":          resourceTackMyIP(),
 		},
 	}
