@@ -1,4 +1,11 @@
-#!/bin/bash -eux
+#!/bin/bash -ux
+
+SHA=sha256sum
+
+hash $SHA &> /dev/null
+if [ $? -eq 1 ]; then
+    SHA="shasum -a 256"
+fi
 
 FN=terraform-provider-tack
 VER=$(git describe --dirty)
@@ -16,4 +23,4 @@ buildOsArch() {
 buildOsArch darwin amd64
 buildOsArch linux amd64
 
-cd release && shasum -a 256 *.tar.gz > terraform-provider-tack_${VER}.SHA256SUMS
+cd release && $SHA *.tar.gz > terraform-provider-tack_${VER}.SHA256SUMS

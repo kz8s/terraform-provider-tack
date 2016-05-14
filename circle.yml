@@ -11,10 +11,6 @@ machine:
     - mkdir -p download
 
 dependencies:
-  # pre:
-  #   - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
-  #   - unzip ${TERRAFORM_VERSION} -d ~/bin
-
   override:
     - |
       cd ${HOME}/download
@@ -57,4 +53,4 @@ deployment:
     branch: develop
     commands:
       - make release
-      - mv release/*.tgz $CIRCLE_ARTIFACTS
+      - mv release/* $CIRCLE_ARTIFACTS
