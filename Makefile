@@ -24,10 +24,13 @@ graph: terraform-provider-tack
 plan: terraform-provider-tack
 	terraform plan
 
+release:
+	scripts/build.sh
+
 test:
 	TF_ACC=1 go test -v
 
 vet:
 	go vet -x ./...
 
-.PHONY: apply build clean destroy fmt get graph plan test vet
+.PHONY: apply build clean destroy fmt get graph plan release test vet
