@@ -17,7 +17,7 @@ fmt:
 
 get:
 	git submodule update --init --recursive # vendor/ terraform v0.6.16
-	go get -v ./...
+	go get -v -d -t ./...
 
 graph: terraform-provider-tack
 	terraform graph examples/

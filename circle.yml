@@ -29,12 +29,15 @@ dependencies:
     - sudo tar -C /usr/local -xzf ${HOME}/download/$GODIST
     - mkdir -p "$GOPATH/src/$IMPORT_PATH"
     - rsync -azC --delete ./ "$GOPATH/src/$IMPORT_PATH/"
-    - go get -t -d -v ./...
+    # - go get -t -d -v ./...
 
     # hashicorp has breaking changes in HEAD, so force checkout of a workable
     # version
     # - cd ~/.go_workspace/src/github.com/hashicorp/terraform && git checkout v0.6.16
-    - git submodule update --init --recursive
+    # - git submodule update --init --recursive
+
+    - make get
+
     - go build -v
     - mv terraform-provider-tack ~/bin
 
