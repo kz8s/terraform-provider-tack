@@ -16,9 +16,8 @@ fmt:
 	go fmt -x .
 
 get:
+	git submodule update --init --recursive # vendor/ terraform v0.6.16
 	go get -v ./...
-	# patch terraform - HEAD has breaking api changes
-	cd ${GOPATH}/src/github.com/hashicorp/terraform && git checkout v0.6.16
 
 graph: terraform-provider-tack
 	terraform graph examples/
