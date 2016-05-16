@@ -2,7 +2,7 @@ terraform-provider-tack: $(shell find . -iname "*.go")
 	go build
 
 apply: terraform-provider-tack
-	terraform apply
+	terraform apply examples/
 
 build: terraform-provider-tack
 
@@ -10,7 +10,7 @@ clean:
 	@rm -rf terraform.tfstate.backup terraform.tfstate terraform-provider-tack release ||:
 
 destroy: terraform-provider-tack
-	terraform destroy
+	terraform destroy examples/
 
 fmt:
 	go fmt -x .
@@ -21,7 +21,7 @@ get:
 	cd ${GOPATH}/src/github.com/hashicorp/terraform && git checkout v0.6.16
 
 graph: terraform-provider-tack
-	terraform graph
+	terraform graph examples/
 
 install:
 	if [[ -L "$(which terraform)" ]] \
@@ -30,7 +30,7 @@ install:
 	fi
 
 plan: terraform-provider-tack
-	terraform plan
+	terraform plan examples/
 
 release:
 	scripts/release.sh
