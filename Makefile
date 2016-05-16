@@ -39,6 +39,6 @@ test:
 	TF_ACC=1 go test -v
 
 vet:
-	go vet -x ./...
+	go vet -x .
 
 .PHONY: apply build clean destroy fmt get graph plan release test vet
