@@ -22,11 +22,8 @@ get:
 graph: terraform-provider-tack
 	terraform graph examples/
 
-install:
-	if [[ -L "$(which terraform)" ]] \
-	then \
-	    echo "terraform is a symlink" \
-	fi
+install: terraform-provider-tack
+	scripts/install.sh
 
 plan: terraform-provider-tack
 	terraform plan examples/
