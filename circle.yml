@@ -11,6 +11,10 @@ machine:
     - mkdir -p download
 
 dependencies:
+  pre:
+    - sudo add-apt-repository ppa:masterminds/glide && sudo apt-get update
+    - sudo apt-get install glide
+
   override:
     - |
       cd ${HOME}/download
@@ -30,13 +34,14 @@ dependencies:
     - mkdir -p "$GOPATH/src/$IMPORT_PATH"
     - rsync -azC --delete ./ "$GOPATH/src/$IMPORT_PATH/"
     # - go get -t -d -v ./...
+    - glide install
 
     # hashicorp has breaking changes in HEAD, so force checkout of a workable
     # version
     # - cd ~/.go_workspace/src/github.com/hashicorp/terraform && git checkout v0.6.16
     # - git submodule update --init --recursive
 
-    - make get
+    # - make get
 
     - go build -v
     - mv terraform-provider-tack ~/bin
