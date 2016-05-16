@@ -27,3 +27,5 @@ terraform.tfstate.backup
 terraform-provider-tack
 
 release/
+vendor/
+glide.lock
