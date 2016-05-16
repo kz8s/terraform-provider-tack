@@ -1,0 +1,3 @@
+[submodule "vendor/terraform"]
+	path = vendor/github.com/hashicorp/terraform
+	url = https://github.com/hashicorp/terraform.git
