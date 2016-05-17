@@ -10,7 +10,7 @@ clean:
 	@rm -rf terraform.tfstate.backup terraform.tfstate terraform-provider-tack release ||:
 
 destroy: terraform-provider-tack
-	terraform destroy examples/
+	terraform destroy -force examples/
 
 fmt:
 	go fmt -x .
